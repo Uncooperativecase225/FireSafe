@@ -1,40 +1,37 @@
 export default function InputField({
   label,
+  id,
   type,
   placeholder,
-  icon: Icon
+  value,
+  onChange
 }) {
+
   return (
-    <div className="flex flex-col gap-1 w-full">
-      <label className="text-sm font-medium text-gray-700">
+
+    <div className="flex flex-col gap-1">
+
+      <label htmlFor={id} className="text-sm font-medium text-gray-700">
         {label}
       </label>
 
-      <div
+      <input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
         className="
-        flex
-        items-center
         border
         rounded-lg
         px-3
         py-2
-        focus-within:ring-2
-        focus-within:ring-cyan-400
-        transition
+        focus:outline-none
+        focus:ring-2
+        focus:ring-cyan-400
         "
-      >
-        <Icon className="text-gray-400 mr-2" />
+      />
 
-        <input
-          type={type}
-          placeholder={placeholder}
-          className="
-          w-full
-          outline-none
-          bg-transparent
-          "
-        />
-      </div>
     </div>
-  );
+  )
 }

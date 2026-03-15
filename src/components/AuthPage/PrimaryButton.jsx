@@ -1,31 +1,35 @@
 import { FaSpinner } from "react-icons/fa";
 
-export default function PrimaryButton({ loading, onClick }) {
+export default function PrimaryButton({ loading, disabled }) {
+
   return (
     <button
-      onClick={onClick}
-      disabled={loading}
+      type="submit"
+      disabled={loading || disabled}
       className="
       w-full
-      rounded-lg
-      py-2
-      font-medium
-      bg-cyan-500
-      text-white
       flex
       items-center
       justify-center
       gap-2
+      rounded-lg
+      py-2
+      font-medium
+      text-white
+      bg-cyan-500
       hover:bg-cyan-600
       transition
       disabled:bg-gray-300
+      disabled:cursor-not-allowed
       "
     >
+
       {loading && (
-        <FaSpinner className="animate-spin" />
+        <FaSpinner className="animate-spin text-white" size={16}/>
       )}
 
       {loading ? "Signing In..." : "Sign In"}
+
     </button>
   );
 }
