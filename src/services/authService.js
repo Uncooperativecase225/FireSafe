@@ -2,37 +2,36 @@ const API = import.meta.env.VITE_API_URL
 
 export const loginUser = async (credentials) => {
 
-  const response = await fetch(`${API}/auth/login`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(credentials)
-  })
+  // simulate network delay
+  await new Promise((resolve) => setTimeout(resolve, 500))
 
-  if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error.message || "Login failed")
+  // mock login logic
+  if (
+    credentials.email === "test@gmail.com" &&
+    credentials.password === "123456"
+  ) {
+    return {
+      token: "mock-jwt-token-123",
+      user: {
+        name: "Test User",
+        email: credentials.email
+      }
+    }
   }
 
-  return response.json()
+  throw new Error("Invalid credentials")
 }
 
 
 export const registerUser = async (userData) => {
 
-  const response = await fetch(`${API}/auth/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(userData)
-  })
+  await new Promise((resolve) => setTimeout(resolve, 500))
 
-  if (!response.ok) {
-    const error = await response.json()
-    throw new Error(error.message || "Signup failed")
+  return {
+    token: "mock-jwt-token-123",
+    user: {
+      name: userData.name,
+      email: userData.email
+    }
   }
-
-  return response.json()
 }
