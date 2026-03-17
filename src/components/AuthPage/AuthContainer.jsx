@@ -33,6 +33,8 @@ export default function AuthContainer() {
   const handleLogin = async (e) => {
 
     e.preventDefault()
+    console.log("login clicked");
+    
 
     if (!loginEmail || !loginPassword) {
       setError("Please fill in all fields")
@@ -48,6 +50,8 @@ export default function AuthContainer() {
         email: loginEmail,
         password: loginPassword
       })
+      console.log("LOGIN: ", data);
+      
 
       saveToken(data.token)
 
@@ -107,7 +111,7 @@ export default function AuthContainer() {
 
     <div className="flex items-center justify-center w-full px-4">
 
-      <div className="relative w-full max-w-[900px] min-h-[520px] bg-white rounded-xl shadow-xl overflow-hidden">
+      <div className="relative w-full max-w-225 min-h-130 bg-white rounded-xl shadow-xl overflow-hidden">
 
         {/* FORMS CONTAINER */}
 
@@ -216,7 +220,7 @@ export default function AuthContainer() {
           className={`
           absolute top-0 left-0 h-full w-1/2
           flex items-center justify-center
-          bg-gradient-to-r from-cyan-400 to-lime-500
+          bg-linear-to-r from-cyan-400 to-lime-500
           text-white text-center px-10
           z-20
           transition-transform duration-500
