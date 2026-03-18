@@ -1,24 +1,27 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
 
-import LoginPage from "./Pages/LoginPage"
-import Dashboard from "./Pages/Dashboard"
-import { isAuthenticated } from "./utils/tokenService"
-import { Navigate } from "react-router-dom"
+import LoginPage from "./pages/LoginPage"
+import Dashboard from "./pages/Dashboard"
+
 import ProtectedRoute from "./components/ProtectedRoute"
+import { isAuthenticated } from "./utils/tokenService"
 
-function App() {
+export default function App() {
   return (
+
       <Routes>
 
-        {/* Public Route */}
+        {/* Root Route */}
         <Route
           path="/"
           element={
-            isAuthenticated() ? <Navigate to="/dashboard" replace /> : <LoginPage />
+            isAuthenticated()
+              ? <Navigate to="/dashboard" replace />
+              : <LoginPage />
           }
-/>
+        />
 
-        {/* Protected Route */}
+        {/* Protected Dashboard */}
         <Route
           path="/dashboard"
           element={
@@ -28,8 +31,9 @@ function App() {
           }
         />
 
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+
       </Routes>
   )
 }
-
-export default App

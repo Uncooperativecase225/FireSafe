@@ -13,7 +13,8 @@ export const removeToken = () => {
 }
 
 export const isAuthenticated = () => {
-  return !!localStorage.getItem(TOKEN_KEY)
+  const token = localStorage.getItem(TOKEN_KEY)
+  return token !== null && token !== undefined
 }
 
 export const logout = () => {
