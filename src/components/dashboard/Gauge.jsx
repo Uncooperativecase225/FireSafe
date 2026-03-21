@@ -1,52 +1,63 @@
+import { motion } from "framer-motion";
+
 export default function Gauge({ value }) {
-  const radius = 50
-  const stroke = 10
-  const normalizedRadius = radius - stroke * 2
-  const circumference = normalizedRadius * Math.PI
+  const size = 180;
+  const stroke = 18;
+  const radius = size / 2;
+  const normalizedRadius = radius - stroke;
+  const circumference = Math.PI * normalizedRadius;
 
-  const strokeDashoffset =
-    circumference - (value / 100) * circumference
-
-  const getColor = () => {
-    if (value < 30) return "#22c55e"
-    if (value < 50) return "#eab308"
-    if (value < 70) return "#f97316"
-    return "#ef4444"
-  }
+  const offset = circumference - (value / 100) * circumference;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex justify-center">
+      <svg width={size} height={size / 2 + 20}>
 
-      <svg height={radius} width={radius * 2}>
-        {/* Background arc */}
+        {/* Gradient */}
+        <defs>
+          <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#22c55e" />
+            <stop offset="50%" stopColor="#facc15" />
+            <stop offset="100%" stopColor="#ef4444" />
+          </linearGradient>
+        </defs>
+
+        {/* Background Arc */}
         <path
           d={`M ${stroke} ${radius}
-              A ${normalizedRadius} ${normalizedRadius} 0 0 1 ${radius * 2 - stroke} ${radius}`}
+              A ${normalizedRadius} ${normalizedRadius} 0 0 1 ${size - stroke} ${radius}`}
           fill="transparent"
           stroke="#e5e7eb"
           strokeWidth={stroke}
+          strokeLinecap="round"
         />
 
-        {/* Foreground arc */}
-        <path
+        {/* Animated Foreground Arc */}
+        <motion.path
           d={`M ${stroke} ${radius}
-              A ${normalizedRadius} ${normalizedRadius} 0 0 1 ${radius * 2 - stroke} ${radius}`}
+              A ${normalizedRadius} ${normalizedRadius} 0 0 1 ${size - stroke} ${radius}`}
           fill="transparent"
-          stroke={getColor()}
+          stroke="url(#gaugeGradient)"
           strokeWidth={stroke}
           strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          style={{
-            transition: "stroke-dashoffset 0.8s ease"
-          }}
+          strokeDashoffset={offset}
+          strokeLinecap="round"
+          initial={{ strokeDashoffset: circumference }}
+          animate={{ strokeDashoffset: offset }}
+          transition={{ duration: 0.8, ease: "easeInOut" }}
         />
+
+        {/* 🔥 VALUE INSIDE GAUGE */}
+        <text
+          x="50%"
+          y={radius - 10}
+          textAnchor="middle"
+          className="fill-gray-800 text-3xl font-bold"
+        >
+          {value}
+        </text>
+
       </svg>
-
-      {/* SINGLE VALUE */}
-      <div className="text-lg font-bold mt-1">
-        {value}
-      </div>
-
     </div>
-  )
+  );
 }

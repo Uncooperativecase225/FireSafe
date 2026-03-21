@@ -14,7 +14,7 @@ export default function MiniGraph({ id }) {
   return (
     <motion.div
       layoutId={`graph-${id}`}
-      className="w-full h-20 mt-3"
+      className="w-full h-28 mb-3"
     >
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data}>
