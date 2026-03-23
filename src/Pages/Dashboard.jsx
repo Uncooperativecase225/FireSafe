@@ -2,13 +2,21 @@ import { LayoutGroup } from "framer-motion";
 import SensorCard from "../components/dashboard/SensorCard";
 import TopBar from "../components/dashboard/TopBar";
 import AlertsPanel from "../components/dashboard/AlertsPanel";
+import { computeSystemState } from "../utils/systemLogic";
 
 export default function Dashboard() {
-  const sensorData = {
+  const baseData = {
     temperature: 45,
     lpg: 60,
     gas: 25,
     fire: false,
+  };
+
+  const systemState = computeSystemState(baseData);
+
+  const sensorData = {
+    ...baseData,
+    ...systemState,
   };
 
   return (

@@ -1,6 +1,11 @@
 import { FaSpinner } from "react-icons/fa";
 
-export default function PrimaryButton({ loading, disabled, text = "Sign In" }) {
+export default function PrimaryButton({
+  loading,
+  disabled,
+  children,
+  loadingText = "Processing...",
+}) {
   return (
     <button
       type="submit"
@@ -16,11 +21,11 @@ export default function PrimaryButton({ loading, disabled, text = "Sign In" }) {
       {loading ? (
         <>
           <FaSpinner className="animate-spin text-white" size={16} />
-          Signing In...
+          {loadingText}
         </>
       ) : (
-        text
+        children
       )}
     </button>
-  )
+  );
 }

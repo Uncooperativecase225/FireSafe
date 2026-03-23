@@ -4,7 +4,7 @@ import AuthContainer from "../components/AuthPage/AuthContainer";
 export default function LoginPage() {
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-100 to-gray-200">
+    <div className="min-h-screen flex flex-col bg-linear-to-br from-gray-100 to-gray-200">
 
       {/* Top Branding Bar */}
       <Topbar />
